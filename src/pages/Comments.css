@@ -1,0 +1,27 @@
+/* src/pages/Comments.css */
+.comments-section {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .comments-list .comment {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }
+  

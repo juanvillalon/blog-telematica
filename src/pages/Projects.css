@@ -1,0 +1,20 @@
+/* src/pages/Projects.css */
+.projects-section {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  .projects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .project {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  

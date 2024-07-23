@@ -1,0 +1,21 @@
+/* src/pages/Curriculum.css */
+.curriculum-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .curriculum-section h3 {
+    font-size: 1.5em;
+    margin-top: 20px;
+  }
+  
+  .curriculum-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .curriculum-section li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  

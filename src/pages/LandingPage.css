@@ -1,0 +1,19 @@
+    /* src/pages/LandingPage.css */
+.landing-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  header {
+    margin-bottom: 20px;
+  }
+  
+  .question-section {
+    margin-bottom: 20px;
+  }
+  
+  .carousel-section {
+    width: 80%;
+    margin: 0 auto;
+  }
+  

@@ -1,0 +1,13 @@
+/* src/pages/News.css */
+
+.news-section {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  article {
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  

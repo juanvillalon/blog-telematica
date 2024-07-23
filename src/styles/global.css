@@ -1,0 +1,33 @@
+/* src/styles/global.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #eaeff2;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  h1, h2, h3 {
+    margin: 0;
+    padding: 10px 0;
+  }
+  
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .landing-page {
+    background: linear-gradient(270deg, #00c6ff, #0072ff, #0052ff, #0033ff);
+    background-size: 600% 600%;
+    animation: gradient 15s ease infinite;
+  }
+  
