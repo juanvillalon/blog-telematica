@@ -2,7 +2,6 @@ import Koa from 'koa';
 import bodyParser from 'koa-body'; // Cambiado a `koa-body` si decides usarlo
 import router from './router/index.js'; // Asegúrate de usar la extensión del archivo
 import cors from '@koa/cors';
-import './database.js'; // Asegúrate de que este archivo maneje correctamente la configuración de la base de datos
 
 const app = new Koa();
 
