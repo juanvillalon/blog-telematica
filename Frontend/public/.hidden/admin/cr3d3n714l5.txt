@@ -1,0 +1,11 @@
+ALTAMENTE CONFIDENCIAL
+NO COMPARTIR POR NINGÚN MOTIVO
+----------------------------------
+
+admin   
+admin123
+
+-----------------------------------
+
+curl -o public/images/telematica1.jpg https://via.placeholder.com/800x400?text=Telemática+1
+exiftool -Comment="Piloutz"

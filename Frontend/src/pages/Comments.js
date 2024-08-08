@@ -1,7 +1,8 @@
 // src/pages/Comments.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import { AppContext } from '../context/AppContext';
 
 const CommentsSection = styled(motion.div)`
   width: 80%;
@@ -27,13 +28,13 @@ const CommentList = styled.div`
 `;
 
 const Comments = () => {
-  const [comments, setComments] = useState([]);
+  const { comments, addComment } = useContext(AppContext);
   const [newComment, setNewComment] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newComment.trim()) {
-      setComments([...comments, newComment]);
+      addComment(newComment);
       setNewComment('');
     }
   };

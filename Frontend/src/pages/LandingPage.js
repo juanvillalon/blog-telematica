@@ -1,9 +1,11 @@
 // src/pages/LandingPage.js
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ImageCarousel from '../components/ImageCarousel';
 import Header from '../components/Header';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
+import { AppContext } from '../context/AppContext';
 
 const gradient = keyframes`
   0% { background-position: 0% 50%; }
@@ -61,9 +63,52 @@ const VisitCounter = styled.div`
   border-radius: 10px;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+`;
+
+const StyledButton = styled(motion.button)`
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    background-color: #004080;
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const HiddenButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: 0;
+  cursor: pointer;
+`;
+
 const LandingPage = () => {
+  const { landingPageContent } = useContext(AppContext);
   const [visits, setVisits] = useState(0);
   const [time, setTime] = useState(new Date());
+  const navigate = useNavigate();
 
   useEffect(() => {
     setVisits((prev) => prev + 1);
@@ -74,9 +119,14 @@ const LandingPage = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const handleDoubleClick = () => {
+    navigate('/admin-login');
+  };
+
   return (
     <LandingPageContainer>
-      <Header title="TeleBlog" />
+      <Header title="Ingeniería Civil Telemática" />
+      <HiddenButton onDoubleClick={handleDoubleClick}>Admin Login</HiddenButton>
       <MainContent>
         <QuestionSection
           initial={{ y: -20, opacity: 0 }}
@@ -84,15 +134,34 @@ const LandingPage = () => {
           transition={{ duration: 0.5 }}
         >
           <h2>¿Qué es telemática?</h2>
-          <p style={{ fontSize: '12px', margin: '10px 0' }}>
-            La telemática es una disciplina que combina las tecnologías de las telecomunicaciones y la informática. Se centra en el estudio y desarrollo de sistemas para la transmisión, recepción y procesamiento de información a través de medios electrónicos. 
-            Los ingenieros telemáticos trabajan en áreas como el diseño de redes de comunicación, la implementación de sistemas de transmisión de datos, y la creación de aplicaciones que integran hardware y software para mejorar la conectividad y el intercambio de información.
-            En resumen, la telemática es esencial para la infraestructura tecnológica moderna, permitiendo la interconexión de dispositivos y sistemas en todo el mundo.
-          </p>
+          <p>{landingPageContent}</p>
         </QuestionSection>
         <CarouselSection>
           <ImageCarousel />
         </CarouselSection>
+        <ButtonContainer>
+          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/comments')}>
+            Comentarios
+          </StyledButton>
+          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/contact')}>
+            Contacto
+          </StyledButton>
+          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/curriculum')}>
+            Malla Curricular
+          </StyledButton>
+          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/events')}>
+            Eventos
+          </StyledButton>
+          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/gallery')}>
+            Galería
+          </StyledButton>
+          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/news')}>
+            Noticias
+          </StyledButton>
+          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/projects')}>
+            Proyectos
+          </StyledButton>
+        </ButtonContainer>
         <Clock>
           Hora Actual: {time.toLocaleTimeString()}
         </Clock>

@@ -1,25 +1,23 @@
-// src/config/config.js
 module.exports = {
-    development: {
-      username: 'root',
-      password: null,
-      database: 'my_database',
-      host: '127.0.0.1',
-      dialect: 'mysql',
-    },
-    test: {
-      username: 'root',
-      password: null,
-      database: 'test_database',
-      host: '127.0.0.1',
-      dialect: 'mysql',
-    },
-    production: {
-      username: 'root',
-      password: null,
-      database: 'production_database',
-      host: '127.0.0.1',
-      dialect: 'mysql',
-    },
-  };
-  
+  development: {
+    username: 'user',
+    password: '123',
+    database: 'db',
+    host: '172.19.0.3',  // Aquí debe coincidir con el nombre del servicio de la base de datos en el YAML
+    dialect: 'mysql',
+  },
+  test: {
+    username: 'user',
+    password: '123',
+    database: 'db',
+    host: '172.19.0.3',
+    dialect: 'mysql',
+  },
+  production: {
+    username: 'user',
+    password: '123',
+    database: 'db',
+    host: '172.19.0.3',
+    dialect: 'mysql',
+  },
+};
