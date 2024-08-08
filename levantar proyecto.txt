@@ -1,0 +1,6 @@
+Requisitos: 
+tener instalado docker
+
+Proyecto:
+ejecutar "docker-compose up" para que corra todo
+
