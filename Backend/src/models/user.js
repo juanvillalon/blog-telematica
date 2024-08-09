@@ -1,23 +1,21 @@
-import { DataTypes, Model } from 'sequelize';
-
-class User extends Model {}
-
-const initUserModel = (sequelize) => {
-  User.init({
+const UserModel = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'User',
+      allowNull: false,
+    },
   });
 
   return User;
 };
 
-export default initUserModel;
+export default UserModel;

@@ -1,21 +1,15 @@
-import { Sequelize } from 'sequelize';
-import config from '../config/config.js'; // Verifica que esta ruta sea correcta
-import UserModel from './user.js'; // Usa la extensión del archivo
+import Sequelize from 'sequelize';
+import UserModel from './user.js'; // Assuming your user model is named `user.js`
+import config from '../config/config.js';
 
 const env = process.env.NODE_ENV || 'development';
-const configEnv = config[env];
+const sequelize = new Sequelize(config[env]);
 
-const sequelize = new Sequelize(configEnv.database, configEnv.username, configEnv.password, {
-  host: configEnv.host,
-  dialect: configEnv.dialect,
-  logging: false, // Opcional
-});
+const db = {};
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-const db = {
-  sequelize,
-  Sequelize,
-  User: UserModel(sequelize) // Llama a la función exportada
-};
+db.User = UserModel(sequelize, Sequelize.DataTypes);
 
 export default db;
 
