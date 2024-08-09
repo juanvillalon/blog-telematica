@@ -12,6 +12,7 @@ import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import AdminLogin from './pages/AdminLogin';
 import Dashboard from './pages/Dashboard';
+import Teams from './pages/Teams';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/teams" element={<Teams />} />
         </Routes>
       </Router>
     </AppProvider>
