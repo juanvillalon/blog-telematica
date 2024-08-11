@@ -5,7 +5,7 @@ export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [landingPageContent, setLandingPageContent] = useState(
-    'La telemática es una disciplina que combina las tecnologías de las telecomunicaciones y la informática...'
+    'La telemática es una disciplina que integra las tecnologías de las telecomunicaciones y la informática...'
   );
   const [comments, setComments] = useState([
     'Me encanta esta página.',

@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAuth } from '../context/AuthContext';
+
+
 
 const LoginContainer = styled.div`
   display: flex;
@@ -37,6 +40,7 @@ const LoginButton = styled.button`
 `;
 
 const AdminLogin = () => {
+  const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -47,6 +51,7 @@ const AdminLogin = () => {
     // Aquí validamos las credenciales
     if (username === 'admin' && password === 'admin123') {
       navigate('/dashboard');
+      login('admin');
     } else {
       setError('Credenciales inválidas');
     }
@@ -78,3 +83,6 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
+
+
+

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import './Contact.css';
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +15,7 @@ const Contact = () => {
     e.preventDefault();
     console.log('Formulario enviado:', form);
     // Aquí podrías enviar el formulario a un servidor
-    setForm({ name: '', email: '', message: '' });
+    setForm({ name: '', email: '', password: '' });
   };
 
   return (
@@ -50,11 +50,11 @@ const Contact = () => {
           />
         </div>
         <div>
-          <label htmlFor="message">Mensaje:</label>
+          <label htmlFor="password">Mensaje:</label>
           <textarea
-            id="message"
-            name="message"
-            value={form.message}
+            id="password"
+            name="password"
+            value={form.password}
             onChange={handleChange}
             required
           ></textarea>

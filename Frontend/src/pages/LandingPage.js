@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { AppContext } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 
 const gradient = keyframes`
   0% { background-position: 0% 50%; }
@@ -75,13 +76,17 @@ const StyledButton = styled(motion.button)`
   background-color: #007bff;
   color: #ffffff;
   border: none;
-  padding: 15px 30px;
-  font-size: 1.2em;
+  padding: 15px 60px;
+  font-size: 1em;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: #0056b3;
@@ -96,6 +101,7 @@ const StyledButton = styled(motion.button)`
   }
 `;
 
+
 const HiddenButton = styled.button`
   position: absolute;
   top: 10px;
@@ -105,6 +111,7 @@ const HiddenButton = styled.button`
 `;
 
 const LandingPage = () => {
+  const { authState } = useAuth();
   const { landingPageContent } = useContext(AppContext);
   const [visits, setVisits] = useState(0);
   const [time, setTime] = useState(new Date());
@@ -140,27 +147,31 @@ const LandingPage = () => {
           <ImageCarousel />
         </CarouselSection>
         <ButtonContainer>
-          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/comments')}>
-            Comentarios
-          </StyledButton>
-          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/contact')}>
-            Contacto
-          </StyledButton>
-          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/curriculum')}>
-            Malla Curricular
-          </StyledButton>
-          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/events')}>
-            Eventos
-          </StyledButton>
-          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/gallery')}>
-            Galería
-          </StyledButton>
-          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/news')}>
-            Noticias
-          </StyledButton>
-          <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/projects')}>
-            Proyectos
-          </StyledButton>
+          {!authState.isAuthenticated && (
+            <>
+              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/comments')}>
+                Comentarios
+              </StyledButton>
+              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/contact')}>
+                Contacto
+              </StyledButton>
+              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/curriculum')}>
+                Malla Curricular
+              </StyledButton>
+              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/events')}>
+                Eventos
+              </StyledButton>
+              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/gallery')}>
+                Galería
+              </StyledButton>
+              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/news')}>
+                Noticias
+              </StyledButton>
+              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/projects')}>
+                Proyectos
+              </StyledButton>
+            </>
+          )}
         </ButtonContainer>
         <Clock>
           Hora Actual: {time.toLocaleTimeString()}

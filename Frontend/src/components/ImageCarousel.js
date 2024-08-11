@@ -14,7 +14,7 @@ const ImageCarousel = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://via.placeholder.com/800x400?text=Telemática+1"
+            src="https://telematica.usm.cl/admision/attachment/casa-central-ingenieria-civil-telematica-w2000-1-3/"
             alt="Imagen de Telemática 1"
           />
           <Carousel.Caption>
@@ -25,7 +25,7 @@ const ImageCarousel = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://via.placeholder.com/800x400?text=Telemática+2"
+            src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg"
             alt="Imagen de Telemática 2"
           />
           <Carousel.Caption>
@@ -36,7 +36,7 @@ const ImageCarousel = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://via.placeholder.com/800x400?text=Telemática+3"
+            src="https://telematica.usm.cl/admision/attachment/casa-central-ingenieria-civil-telematica-w2000-1-3/"
             alt="Imagen de Telemática 3"
           />
           <Carousel.Caption>

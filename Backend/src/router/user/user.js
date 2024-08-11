@@ -3,8 +3,8 @@ import db from '../../models/index.js';
 const test = async (ctx) => {
   try {
     const User = db.User;
-    const newUser = await User.create({ username: 'john_doe', password: 'john@example.com' });
-    ctx.body = { mensaje: '¡Hola desde Koa!', user: newUser };
+    const newUser = await User.create({ username: 'piloutz', password: 'sandiaSlayer@usm.cl',email:'sandia7' });
+    ctx.body = { mensaje: '¡Usuario base creado!', user: newUser };
   } catch (error) {
     ctx.status = 500;
     ctx.body = { mensaje: 'Error al crear el usuario', error: error.message };

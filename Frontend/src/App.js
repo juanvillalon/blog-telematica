@@ -1,7 +1,9 @@
+
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AppProvider } from './context/AppContext'; // Importa el contexto
+import { AppProvider } from './context/AppContext';
+import { AuthProvider } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
 import Comments from './pages/Comments';
 import Curriculum from './pages/Curriculum';
@@ -11,16 +13,19 @@ import Events from './pages/Events';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import AdminLogin from './pages/AdminLogin';
+import UserLogin from './pages/UserLogin';
 import Dashboard from './pages/Dashboard';
 import Teams from './pages/Teams';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <AppProvider>
-      <Router>
-        <Routes>
+    <AuthProvider>
+      <AppProvider>
+        <Router>
+          <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/comments" element={<Comments />} />
+          <Route path="/comments" element={<ProtectedRoute element={<Comments />} requiredRole="user" />} />
           <Route path="/curriculum" element={<Curriculum />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/news" element={<News />} />
@@ -28,11 +33,13 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/user-login" element={<UserLogin />} />
+          <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} requiredRole="admin" />} />
           <Route path="/teams" element={<Teams />} />
-        </Routes>
-      </Router>
-    </AppProvider>
+          </Routes>
+        </Router>
+      </AppProvider>
+    </AuthProvider>
   );
 }
 
