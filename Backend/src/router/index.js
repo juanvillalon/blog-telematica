@@ -18,4 +18,6 @@ router.delete('/api/user/:mail', user.deleteUser); // Eliminar un usuario por ma
 
 router.get('/api/team', team.getAllTeams); // Obtener todos los usernames y mails de los usuarios
 router.put('/api/team', team.addNewTeam); // Agregar un nuevo usuario a la BD
+router.delete('/api/team/:teamName', team.deleteTeam); // Eliminar un usuario por mail
 export default router;
+ 

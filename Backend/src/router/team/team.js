@@ -30,7 +30,25 @@ const getAllTeams = async (ctx) => {
   }
 };
 
+const deleteTeam = async (ctx) => {
+  try {
+    const { Name } = ctx.params;
+    const team = await db.Team.findOne({ where: { teamName: Name } });
+    if (team) {
+      await team.destroy();
+      ctx.body = { mensaje: 'Team eliminado exitosamente' };
+    } else {
+      ctx.status = 404;
+      ctx.body = { mensaje: 'Team no encontrado' };
+    }
+  } catch (error) {
+    ctx.status = 500;
+    ctx.body = { mensaje: 'Error al eliminar el Team', error: error.message };
+  }
+};
+
 export default {
     addNewTeam,
-    getAllTeams
+    getAllTeams,
+    deleteTeam
   };
