@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import LogoutButton from '../components/LogoutButton';
 
 const CurriculumContainer = styled(motion.div)`
   width: 80%;
@@ -24,6 +25,10 @@ const Curriculum = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
+          <div>
+      <LogoutButton />
+      {/* El contenido de la página */}
+    </div>
       <h2>Malla Curricular</h2>
       {[
         { semester: '1º Semestre', subjects: ['Matemática I', 'Introducción a la Física', 'Iniciación a la Programación', 'Introducción a la Ingeniería', 'Educación Física I', 'Humanístico I'] },

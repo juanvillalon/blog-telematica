@@ -1,10 +1,8 @@
-// src/pages/AdminLogin.js
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAuth } from '../context/AuthContext';
-
-
+import LogoutButton from '../components/LogoutButton';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -41,37 +39,61 @@ const LoginButton = styled.button`
 
 const AdminLogin = () => {
   const { login } = useAuth();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Aquí validamos las credenciales
-    if (username === 'admin' && password === 'admin123') {
-      navigate('/dashboard');
-      login('admin');
-    } else {
-      setError('Credenciales inválidas');
+
+    if (email === "" || password === "") {
+      setError('Todos los campos son obligatorios');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://172.22.192.1:3001/api/adminlogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Error ${response.status}: ${text}`);
+      }
+
+      const result = await response.json();
+      console.log("Response from server:", result);
+      login('admin');  // Guarda el estado de autenticación como 'admin'
+      navigate('/dashboard');  // Redirige al panel de administración
+    } catch (error) {
+      setError(error.message);
     }
   };
 
   return (
     <LoginContainer>
-      <LoginForm onSubmit={handleSubmit}>
+          <div>
+      <LogoutButton />
+      {/* El contenido de la página */}
+    </div>
+      <LoginForm onSubmit={handleLogin}>
         <h2>Admin Login</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -83,6 +105,3 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
-
-
-

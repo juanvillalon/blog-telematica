@@ -4,17 +4,19 @@ import bcrypt from 'bcryptjs';
 const addNewTeam = async (ctx) => {
   try {
     const { teamName, imageSrc } = ctx.request.body;
-    const vulnerabilities= [
+
+    // Vulnerabilidades a cifrar
+    const vulnerabilities = [
       {
-        "safe": false,
         "label": "SSH vulnerable"
       },
       {
-        "safe": false,
         "label": "Puertos abiertos"
       }
     ];
-    const flags= [
+
+    // Flags a cifrar
+    const flags = [
       {
         "label": "7El3m4t1cA_2025"
       },
@@ -22,6 +24,18 @@ const addNewTeam = async (ctx) => {
         "label": "DIF7E1_cYbEr5Ec"
       }
     ];
+
+    // Cifrar cada vulnerabilidad individualmente y agregar el booleano
+    const encryptedVulnerabilities = await Promise.all(
+      vulnerabilities.map(async (vuln) => {
+        const vulnString = JSON.stringify(vuln); // Convertir vulnerabilidad a una cadena JSON
+        const encryptedVuln = await bcrypt.hash(vulnString, 10); // Cifrar la cadena
+        return {
+          label: encryptedVuln,
+          encrypted: true, // Booleano indicando que está encriptada
+        };
+      })
+    );
 
     // Cifrar cada flag individualmente y agregar el booleano
     const encryptedFlags = await Promise.all(
@@ -38,7 +52,7 @@ const addNewTeam = async (ctx) => {
     const newTeam = await db.Team.create({
       teamName,
       imageSrc,
-      vulnerabilities,
+      vulnerabilities: encryptedVulnerabilities, // Guardar las vulnerabilidades cifradas
       flags: encryptedFlags, // Guardar las flags cifradas
     });
 
@@ -49,12 +63,57 @@ const addNewTeam = async (ctx) => {
   }
 };
 
+const compareVulnerability = async (ctx) => {
+  try {
+    const { vulnerability } = ctx.request.body; // La vulnerabilidad enviada por el usuario
+    const team = await db.Team.findOne(); // Obtener el único equipo
+    const teamName = team.teamName;
+
+    if (!team) {
+      ctx.status = 404;
+      ctx.body = { mensaje: 'Equipo no encontrado' };
+      return;
+    }
+
+    for (let i = 0; i < team.vulnerabilities.length; i++) {
+      const { label: encryptedVuln, encrypted } = team.vulnerabilities[i];
+      
+      // Solo comparar si la vulnerabilidad está encriptada
+      if (encrypted) {
+        const isMatch = await bcrypt.compare(JSON.stringify({ label: vulnerability }), encryptedVuln);
+        if (isMatch) {
+          // Desencriptar y actualizar la vulnerabilidad
+          team.vulnerabilities[i] = {
+            label: vulnerability,
+            encrypted: false, // Actualizar a no encriptada
+          };
+
+          // Guardar los cambios en la base de datos
+          await db.Team.update(
+            { vulnerabilities: team.vulnerabilities },
+            { where: { teamName } }
+          );
+          ctx.body = { mensaje: '¡Vulnerabilidad coincide y fue desencriptada!', vulnerability: vulnerability };
+          return;
+        }
+      }
+    }
+
+    // Si ninguna vulnerabilidad coincide
+    ctx.status = 400;
+    ctx.body = { mensaje: 'Vulnerabilidad incorrecta. Intenta de nuevo.' };
+  } catch (error) {
+    ctx.status = 500;
+    ctx.body = { mensaje: 'Error al comparar la vulnerabilidad', error: error.message };
+  }
+};
+
 const compareFlag = async (ctx) => {
   try {
     const { flag } = ctx.request.body; // La flag enviada por el usuario
     const team = await db.Team.findOne(); // Obtener el único equipo
-    console.log("ola pe",team.teamName)
     const teamName = team.teamName;
+
     if (!team) {
       ctx.status = 404;
       ctx.body = { mensaje: 'Equipo no encontrado' };
@@ -94,10 +153,6 @@ const compareFlag = async (ctx) => {
   }
 };
 
-
-
-
-// Endpoint para obtener todos los equipos
 const getAllTeams = async (ctx) => {
   try {
     const teams = await db.Team.findAll();
@@ -127,7 +182,8 @@ const deleteTeam = async (ctx) => {
 
 export default {
   addNewTeam,
-  compareFlag,  // Exportar el nuevo endpoint
+  compareFlag,
+  compareVulnerability, // Exportar el nuevo endpoint
   getAllTeams,
   deleteTeam
 };

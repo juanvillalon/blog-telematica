@@ -15,6 +15,7 @@ export const AppProvider = ({ children }) => {
     { name: "Andrés Núñez", email: "andres.nunez@example.com", rating: 3, comment: "El taller fue bueno, pero esperaba más profundidad en los temas." },
     { name: "Patricia Reyes", email: "patricia.reyes@example.com", rating: 4, comment: "Buena calidad del contenido, pero la duración fue corta." },
     { name: "Juan Rojas", email: "juan.rojas@example.com", rating: 5, comment: "Increíble experiencia, superó mis expectativas." },
+    { name: "Nicolas Verdugo", email: "nicolas.verdugo@usm.cl", rating: 5, comment: "Increíble experiencia, superó mis expectativas." }
   ]);
 
   const [landingPageContent, setLandingPageContent] = useState(

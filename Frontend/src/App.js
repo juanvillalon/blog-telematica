@@ -1,5 +1,3 @@
-
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
@@ -24,18 +22,26 @@ function App() {
       <AppProvider>
         <Router>
           <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/comments" element={<Comments />} />
-          <Route path="/curriculum" element={<Curriculum />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/user-login" element={<UserLogin />} />
-          <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} requiredRole="admin" />} />
-          <Route path="/teams" element={<Teams />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/comments" element={
+              <ProtectedRoute requiredRole="user" redirectTo="/comments">
+                <Comments />
+              </ProtectedRoute>
+            } />
+            <Route path="/curriculum" element={<Curriculum />} />
+            <Route path="/gallery" element={<LandingPage />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/user-login" element={<UserLogin />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute requiredRole="admin" redirectTo="/dashboard">
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/teams" element={<Teams />} />
           </Routes>
         </Router>
       </AppProvider>

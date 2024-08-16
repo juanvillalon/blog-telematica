@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import LogoutButton from '../components/LogoutButton';
 
 const UserLogin = () => {
   const { login } = useAuth();
@@ -34,7 +35,7 @@ const UserLogin = () => {
       const result = await response.json();
       console.log("Response from server:", result);
       login('user');  // Guarda el estado de autenticación como 'user'
-      navigate('/');  // Redirige a la página de aterrizaje
+      navigate('/comments');  // Redirige a la página de aterrizaje
     } catch (error) {
       setError(error.message);
     }
@@ -42,6 +43,10 @@ const UserLogin = () => {
 
   return (
     <div>
+          <div>
+      <LogoutButton />
+      {/* El contenido de la página */}
+    </div>
       <h1>User Login</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleLogin}>

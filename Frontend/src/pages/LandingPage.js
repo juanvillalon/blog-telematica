@@ -6,6 +6,8 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { AppContext } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+import logo1 from '../components/images/logo1.png';
+import logo2 from '../components/images/logo2.png';
 
 const gradient = keyframes`
   0% { background-position: 0% 50%; }
@@ -135,8 +137,8 @@ const LandingPage = () => {
   return (
     <LandingPageContainer>
       <LogoContainer>
-        <UsmLogo src="https://telematica.usm.cl/wp-content/themes/telematica-web/assets/img/header-usm.png" alt="Logo USM" />
-        <TelematicaLogo src="https://telematica.usm.cl/wp-content/themes/telematica-web/assets/img/logo-usm-tel.png" alt="Logo Telemática" />
+        <UsmLogo src={logo1} alt="Logo USM" />
+        <TelematicaLogo src={logo2} alt="Logo Telemática" />
       </LogoContainer>
       <HiddenButton onDoubleClick={handleDoubleClick}>Admin Login</HiddenButton>
       <MainContent>
@@ -164,9 +166,6 @@ const LandingPage = () => {
               </StyledButton>
               <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/events')}>
                 Eventos
-              </StyledButton>
-              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/gallery')}>
-                Galería
               </StyledButton>
               <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/news')}>
                 Noticias

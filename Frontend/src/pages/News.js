@@ -7,6 +7,7 @@ import noticia2 from '../components/images/noticia2.jpeg';
 import noticia3 from '../components/images/noticia3.png';
 import noticia4 from '../components/images/noticia4.png';
 import noticia5 from '../components/images/noticia5.jpg';
+import LogoutButton from '../components/LogoutButton';
 
 const newsArticles = [
   {
@@ -54,6 +55,10 @@ const News = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
+          <div>
+      <LogoutButton />
+      {/* El contenido de la página */}
+    </div>
       <h2>Noticias</h2>
       <div className="news-grid">
         {newsArticles.map((article) => (

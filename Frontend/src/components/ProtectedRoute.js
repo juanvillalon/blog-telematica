@@ -3,35 +3,18 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const ProtectedRoute = ({ element, requiredRole }) => {
+export const ProtectedRoute = ({ requiredRole, children }) => {
   const { authState } = useAuth();
 
   if (!authState.isAuthenticated) {
-    return <Navigate to="/" />;
+    return requiredRole === 'admin' ? <Navigate to="/admin-login" /> : <Navigate to="/user-login" />;
   }
 
   if (requiredRole && authState.role !== requiredRole) {
     return <Navigate to="/" />;
   }
 
-  return element;
+  return children;
 };
 
-const ProtectedRouteTeam = ({ element, requiredRole }) => {
-  const { authState } = useAuth();
-
-  if (!authState.isAuthenticated) {
-    return <Navigate to="/" />;
-  }
-
-  if (requiredRole && authState.role !== requiredRole) {
-    return <Navigate to="/" />;
-  }
-
-  return element;
-};
-
-export default {
-  ProtectedRoute,
-  ProtectedRouteTeam
-};
+export default ProtectedRoute; // Exporta como exportación por defecto
