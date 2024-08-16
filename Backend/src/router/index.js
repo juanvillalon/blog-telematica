@@ -26,6 +26,7 @@ router.post('/api/adminlogin', admin.loginUser); // Login de usuario
 
 router.get('/api/team', team.getAllTeams); // Obtener todos los usernames y mails de los usuarios
 router.put('/api/team', team.addNewTeam); // Agregar un nuevo usuario a la BD
+router.post('/api/team/flag', team.compareFlag); // Comprobar Flag
 router.delete('/api/team/:teamName', team.deleteTeam); // Eliminar un usuario por mail
 export default router;
  
