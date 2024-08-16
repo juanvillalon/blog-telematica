@@ -25,7 +25,7 @@ function App() {
         <Router>
           <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/comments" element={<ProtectedRoute element={<Comments />} requiredRole="user" />} />
+          <Route path="/comments" element={<Comments />} />
           <Route path="/curriculum" element={<Curriculum />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/news" element={<News />} />

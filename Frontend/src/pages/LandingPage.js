@@ -1,4 +1,3 @@
-// src/pages/LandingPage.js
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImageCarousel from '../components/ImageCarousel';
@@ -21,6 +20,24 @@ const LandingPageContainer = styled.div`
   background-size: 600% 600%;
   animation: ${gradient} 15s ease infinite;
   min-height: 100vh;
+  position: relative;
+`;
+
+const LogoContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+`;
+
+const UsmLogo = styled.img`
+  height: 60px;
+`;
+
+const TelematicaLogo = styled.img`
+  height: 60px;
 `;
 
 const MainContent = styled.div`
@@ -47,15 +64,6 @@ const CarouselSection = styled.div`
 `;
 
 const Clock = styled.div`
-  font-size: 1.2em;
-  color: #ffffff;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-`;
-
-const VisitCounter = styled.div`
   font-size: 1.2em;
   color: #ffffff;
   margin-top: 20px;
@@ -101,7 +109,6 @@ const StyledButton = styled(motion.button)`
   }
 `;
 
-
 const HiddenButton = styled.button`
   position: absolute;
   top: 10px;
@@ -113,13 +120,8 @@ const HiddenButton = styled.button`
 const LandingPage = () => {
   const { authState } = useAuth();
   const { landingPageContent } = useContext(AppContext);
-  const [visits, setVisits] = useState(0);
   const [time, setTime] = useState(new Date());
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setVisits((prev) => prev + 1);
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -132,7 +134,10 @@ const LandingPage = () => {
 
   return (
     <LandingPageContainer>
-      <Header title="Ingeniería Civil Telemática" />
+      <LogoContainer>
+        <UsmLogo src="https://telematica.usm.cl/wp-content/themes/telematica-web/assets/img/header-usm.png" alt="Logo USM" />
+        <TelematicaLogo src="https://telematica.usm.cl/wp-content/themes/telematica-web/assets/img/logo-usm-tel.png" alt="Logo Telemática" />
+      </LogoContainer>
       <HiddenButton onDoubleClick={handleDoubleClick}>Admin Login</HiddenButton>
       <MainContent>
         <QuestionSection
@@ -147,7 +152,6 @@ const LandingPage = () => {
           <ImageCarousel />
         </CarouselSection>
         <ButtonContainer>
-          {!authState.isAuthenticated && (
             <>
               <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/comments')}>
                 Comentarios
@@ -167,18 +171,14 @@ const LandingPage = () => {
               <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/news')}>
                 Noticias
               </StyledButton>
-              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/projects')}>
-                Proyectos
+              <StyledButton whileHover={{ scale: 1.1 }} onClick={() => navigate('/teams')}>
+                Team
               </StyledButton>
             </>
-          )}
         </ButtonContainer>
         <Clock>
           Hora Actual: {time.toLocaleTimeString()}
         </Clock>
-        <VisitCounter>
-          Contador de Visitas: {visits}
-        </VisitCounter>
       </MainContent>
     </LandingPageContainer>
   );

@@ -17,4 +17,21 @@ const ProtectedRoute = ({ element, requiredRole }) => {
   return element;
 };
 
-export default ProtectedRoute;
+const ProtectedRouteTeam = ({ element, requiredRole }) => {
+  const { authState } = useAuth();
+
+  if (!authState.isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+
+  if (requiredRole && authState.role !== requiredRole) {
+    return <Navigate to="/" />;
+  }
+
+  return element;
+};
+
+export default {
+  ProtectedRoute,
+  ProtectedRouteTeam
+};

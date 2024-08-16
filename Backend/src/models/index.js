@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import UserModel from './user.js'; // Assuming your user model is named `user.js`
+import AdminModel from './admin.js'; // Assuming your user model is named `user.js`
 import TeamModel from './team.js'; // Assuming your user model is named `user.js`
 import config from '../config/config.js';
 
@@ -10,6 +11,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.Admin = AdminModel(sequelize, Sequelize.DataTypes);
 db.User = UserModel(sequelize, Sequelize.DataTypes);
 db.Team = TeamModel(sequelize, Sequelize.DataTypes);
 

@@ -13,16 +13,6 @@ const TeamModel = (sequelize) => {
     vulnerabilities: {
       type: DataTypes.JSON,
     },
-    life1: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,  // Valor predeterminado si es necesario
-    },
-    life2: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,  // Valor predeterminado si es necesario
-    },
     flags: {
       type: DataTypes.JSON,
     },

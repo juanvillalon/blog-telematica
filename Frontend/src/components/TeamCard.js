@@ -25,12 +25,7 @@ const TeamCard = ({ teamName, imageSrc, vulnerabilities, life1, life2, flags }) 
                 <div className="flex items-center cursor-pointer" key={index}>
                   <input
                     type="checkbox"
-                    className={`form-checkbox h-5 w-5 ${
-                      vuln.safe
-                        ? "text-green-500 dark:text-green-400"
-                        : "text-red-500 dark:text-red-400"
-                    } mr-2`}
-                    checked={vuln.checked}
+                    className={`form-checkbox h-5 w-5 ${"text-green-500 dark:text-green-400"} mr-2`}
                     readOnly
                   />
                   <label className="text-accent-foreground dark:text-primary-foreground">
@@ -49,12 +44,7 @@ const TeamCard = ({ teamName, imageSrc, vulnerabilities, life1, life2, flags }) 
                 <div className="flex items-center cursor-pointer" key={index}>
                   <input
                     type="checkbox"
-                    className={`form-checkbox h-5 w-5 ${
-                      flag.safe
-                        ? "text-green-500 dark:text-green-400"
-                        : "text-red-500 dark:text-red-400"
-                    } mr-2`}
-                    checked={flag.checked}
+                    className={`form-checkbox h-5 w-5 ${"text-green-500 dark:text-green-400"} mr-2`}
                     readOnly
                   />
                   <label className="text-accent-foreground dark:text-primary-foreground">
@@ -66,31 +56,6 @@ const TeamCard = ({ teamName, imageSrc, vulnerabilities, life1, life2, flags }) 
           </Col>
         </Row>
         <Row>
-          <Col>
-            <div className="mt-4 flex">
-              <span className="font-semibold mr-4 text-accent-foreground dark:text-primary-foreground">
-                Vidas:
-              </span>
-              <div className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  className={`form-checkbox h-5 w-5 ${
-                    life1 ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"
-                  } mr-2`}
-                  checked={life1}
-                  readOnly
-                />
-                <input
-                  type="checkbox"
-                  className={`form-checkbox h-5 w-5 ${
-                    life2 ? "text-green-500 dark:text-green-400" : "text-red-500 dark:text-red-400"
-                  } mr-2`}
-                  checked={life2}
-                  readOnly
-                />
-              </div>
-            </div>
-          </Col>
         </Row>
       </Container>
     </div>

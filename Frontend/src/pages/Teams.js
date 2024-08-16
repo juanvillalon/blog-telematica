@@ -3,17 +3,20 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import TeamCard from '../components/TeamCard';
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [flag, setFlag] = useState('');
+  const [hint, setHint] = useState(null);
 
   const fetchTeams = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://172.22.192.1:3001/api/team'); // Asegúrate de usar http:// o https://
+      const response = await fetch('http://172.22.192.1:3001/api/team');
       
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -35,6 +38,33 @@ const Teams = () => {
     }
   };
 
+  const submitFlag = async () => {
+    try {
+      const response = await fetch('http://172.22.192.1:3001/api/submitFlag', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ flag }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      if (data.correct) {
+        setHint(data.hint);
+      } else {
+        setHint('Flag incorrecta. Intenta de nuevo.');
+      }
+    } catch (error) {
+      console.error('Error submitting flag:', error);
+      setHint('Error al enviar la flag');
+    }
+  };
+
   useEffect(() => {
     fetchTeams();
   }, []);
@@ -46,11 +76,9 @@ const Teams = () => {
         variant="primary"
         className="mb-4"
       >
-        Actualizar Equipos
+        Actuizar Equipos
       </Button>
 
-      {loading && <p>Cargando...</p>}
-      {error && <p className="text-danger">{error}</p>}
 
       <Row>
         {teams.map((team) => (
@@ -59,13 +87,31 @@ const Teams = () => {
               teamName={team.teamName}
               imageSrc={team.imageSrc}
               vulnerabilities={team.vulnerabilities}
-              life1={team.life1}
-              life2={team.life2}
               flags={team.flags}
             />
           </Col>
         ))}
       </Row>
+      
+      {loading && <p>Cargando...</p>}
+      {error && <p className="text-danger">{error}</p>}
+
+      <Form className="mb-4">
+        <Form.Group controlId="formFlag">
+          <Form.Label>Ingresa tu Flag</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Introduce la flag aquí"
+            value={flag}
+            onChange={(e) => setFlag(e.target.value)}
+          />
+        </Form.Group>
+        <Button variant="success" onClick={submitFlag}>
+          Enviar Flag
+        </Button>
+      </Form>
+
+      {hint && <p className="text-info">{hint}</p>}
     </Container>
   );
 };

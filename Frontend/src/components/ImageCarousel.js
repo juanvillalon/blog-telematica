@@ -2,6 +2,9 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import imagen1 from './images/portada1.jpg';
+import imagen2 from './images/portada2.png';
+import imagen3 from './images/portada3.png';
 
 const ImageCarousel = () => {
   return (
@@ -14,35 +17,23 @@ const ImageCarousel = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://telematica.usm.cl/admision/attachment/casa-central-ingenieria-civil-telematica-w2000-1-3/"
+            src={imagen1}
             alt="Imagen de Telemática 1"
           />
-          <Carousel.Caption>
-            <h3>Telemática 1</h3>
-            <p>Descripción de la imagen 1.</p>
-          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg"
+            src={imagen2}
             alt="Imagen de Telemática 2"
           />
-          <Carousel.Caption>
-            <h3>Telemática 2</h3>
-            <p>Descripción de la imagen 2.</p>
-          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://telematica.usm.cl/admision/attachment/casa-central-ingenieria-civil-telematica-w2000-1-3/"
+            src={imagen3}
             alt="Imagen de Telemática 3"
           />
-          <Carousel.Caption>
-            <h3>Telemática 3</h3>
-            <p>Descripción de la imagen 3.</p>
-          </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
     </motion.div>
