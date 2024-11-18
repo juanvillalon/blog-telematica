@@ -147,7 +147,7 @@ const LandingPage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <h2>¿Qué es telemática?</h2>
+          <h2>¿Qué es Telemática?</h2>
           <p>{landingPageContent}</p>
         </QuestionSection>
         <CarouselSection>
