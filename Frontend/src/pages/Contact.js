@@ -18,7 +18,7 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://172.22.192.1:3001/api/user', {
+      const response = await fetch('/api/user', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

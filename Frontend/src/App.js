@@ -29,7 +29,7 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="/curriculum" element={<Curriculum />} />
-            <Route path="/gallery" element={<LandingPage />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/news" element={<News />} />
             <Route path="/events" element={<Events />} />
             <Route path="/projects" element={<Projects />} />

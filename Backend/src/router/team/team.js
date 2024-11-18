@@ -8,20 +8,42 @@ const addNewTeam = async (ctx) => {
     // Vulnerabilidades a cifrar
     const vulnerabilities = [
       {
-        "label": "SSH vulnerable"
+        "label": "Vuln3r4b1l1ty{$$H_4cc3ss-4-l34ks-cr3d}"
       },
       {
-        "label": "Puertos abiertos"
+        "label": "Vuln3r4b1l1ty{0p3n.p0rts.4r3.4lw4ys.d4ng3r0us}"
+      },{
+        "label": "Vuln3r4b1l1ty{Leak Credentials}"
+      },{
+        "label": "Vuln3r4b1l1ty{H4rd3n1ng_1sV3ry.1mp0rt4nt}"
+      },
+      {
+        "label":"Vuln3r4b1l1ty{FTP_4n0nym0u$.0n}"
+      },{
+        "label":"Vuln3r4b1l1ty{P3rm1ss10n.Br34ch}"
       }
     ];
 
     // Flags a cifrar
     const flags = [
       {
-        "label": "7El3m4t1cA_2025"
+        "label": "t3l_UTFSM{th1s_1s_m4ll4.t3l_for_you}"
       },
       {
-        "label": "DIF7E1_cYbEr5Ec"
+        "label": "t3l_UTFSM{Y0u_p4g3.1s_h4ck3d}"
+      },{
+        "label":"t3l_UTFSM{y0u_c4n_c0mm3nts.1nTh1s_p4g3}"
+      },{
+        "label":"t3l_utf$m{pwn3d.w3bS1t3-gj}"
+      },
+      {
+        "label":"t3l_UTFSM{H1dd3n_d4t4.1n_ph0th0s}"
+      },{
+        "label":"t3l_UTFSM{0nly_y0u.f1rstFl4g0fCh4ll3ng3}"
+      },{
+        "label":"t3l_UTFSM{0ut_th3.80x}"
+      },{
+        "label":"t3l_utf$m{$upr3m4cy.p0w3r_y0ur.th3.b3st}"
       }
     ];
 
@@ -62,6 +84,7 @@ const addNewTeam = async (ctx) => {
     ctx.body = { mensaje: 'Error al crear el equipo', error: error.message };
   }
 };
+
 
 const compareVulnerability = async (ctx) => {
   try {

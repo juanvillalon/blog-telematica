@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   front:
-    container_name: Frontend
+    container_name: T3l_Frontend
     build:
       context: ./Frontend
     stdin_open: true
@@ -11,15 +11,10 @@ services:
       - blogTelematica
     volumes:
       - ./Frontend:/usr/src/app
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-        reservations:
-          memory: 512M
+    restart: unless-stopped
 
   back:
-    container_name: Backend
+    container_name: T3l_Backend
     build:
       context: ./Backend
     ports:
@@ -34,16 +29,11 @@ services:
     volumes:
       - ./Backend:/usr/src/app
     command: npm run start:dev
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-        reservations:
-          memory: 256M
+    restart: unless-stopped
 
   db:
     image: mysql:5.7
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_DATABASE: 'db'
       MYSQL_USER: 'user'
@@ -63,7 +53,6 @@ services:
           memory: 512M
         reservations:
           memory: 256M
-
 
 volumes:
   my-db:

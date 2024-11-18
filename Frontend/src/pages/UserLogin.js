@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import LogoutButton from '../components/LogoutButton';
+import axios from 'axios';
 
 const UserLogin = () => {
   const { login } = useAuth();
@@ -19,34 +20,31 @@ const UserLogin = () => {
     }
 
     try {
-      const response = await fetch('http://172.22.192.1:3001/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+      const response = await axios.post('/api/login', {
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        const text = await response.text();
-        throw new Error(`Error ${response.status}: ${text}`);
-      }
-
-      const result = await response.json();
-      console.log("Response from server:", result);
+      console.log("Response from server:", response.data);
       login('user');  // Guarda el estado de autenticación como 'user'
       navigate('/comments');  // Redirige a la página de aterrizaje
     } catch (error) {
-      setError(error.message);
+      if (error.response) {
+        // Request made and server responded
+        setError(`Error ${error.response.status}: ${error.response.data}`);
+      } else if (error.request) {
+        // The request was made but no response was received
+        setError('No response received from server');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        setError('Error: ' + error.message);
+      }
     }
   };
 
   return (
     <div>
-          <div>
       <LogoutButton />
-      {/* El contenido de la página */}
-    </div>
       <h1>User Login</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleLogin}>

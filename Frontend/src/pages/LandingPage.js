@@ -147,7 +147,7 @@ const LandingPage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <h2>¿Qué es telemática?</h2>
+          <h2>¿Qué es Telemática?</h2>
           <p>{landingPageContent}</p>
         </QuestionSection>
         <CarouselSection>
@@ -178,6 +178,7 @@ const LandingPage = () => {
         <Clock>
           Hora Actual: {time.toLocaleTimeString()}
         </Clock>
+        A veces los secretos se encuentra a simple vista "74 33 6c 5f 55 54 46 53 4d 7b 30 6e 6c 79 5f 79 30 75 2e 66 31 72 73 74 46 6c 34 67 30 66 43 68 34 6c 6c 33 6e 67 33 7d" codificando caracteres de manera precisa.
       </MainContent>
     </LandingPageContainer>
   );

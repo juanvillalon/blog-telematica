@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoutButton from '../components/LogoutButton';
+import axios from 'axios';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -53,34 +54,34 @@ const AdminLogin = () => {
     }
 
     try {
-      const response = await fetch('http://172.22.192.1:3001/api/adminlogin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+      const response = await axios.post('/api/adminlogin', {
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        const text = await response.text();
-        throw new Error(`Error ${response.status}: ${text}`);
-      }
-
-      const result = await response.json();
-      console.log("Response from server:", result);
+      console.log("Response from server:", response.data);
       login('admin');  // Guarda el estado de autenticación como 'admin'
       navigate('/dashboard');  // Redirige al panel de administración
     } catch (error) {
-      setError(error.message);
+      if (error.response) {
+        // Request made and server responded
+        setError(`Error ${error.response.status}: ${error.response.data}`);
+      } else if (error.request) {
+        // The request was made but no response was received
+        setError('No response received from server');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        setError('Error: ' + error.message);
+      }
     }
   };
 
   return (
     <LoginContainer>
-          <div>
-      <LogoutButton />
-      {/* El contenido de la página */}
-    </div>
+      <div>
+        <LogoutButton />
+        {/* El contenido de la página */}
+      </div>
       <LoginForm onSubmit={handleLogin}>
         <h2>Admin Login</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
