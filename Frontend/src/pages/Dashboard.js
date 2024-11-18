@@ -32,6 +32,7 @@ const Dashboard = () => {
       <Section>
         <SectionTitle>Felicidades eres admin!!</SectionTitle>
         <h3>Flag suprema</h3>
+        <p>37 34 20 33 33 20 36 63 20 35 66 20 37 35 20 37 34 20 36 36 20 32 34 20 36 64 20 37 62 20 37 30 20 37 37 20 36 65 20 33 33 20 36 34 20 32 65 20 37 37 20 33 33 20 36 32 20 35 33 20 33 31 20 37 34 20 33 33 20 32 64 20 36 37 20 36 61 20 37 64</p>
       </Section>
     </DashboardContainer>
   );

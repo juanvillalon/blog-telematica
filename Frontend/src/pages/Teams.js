@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -13,7 +14,6 @@ import LogoutButton from '../components/LogoutButton';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 
-
 const Teams = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,27 +24,16 @@ const Teams = () => {
   const [teamName, setTeamName] = useState('');
   const [imageSrc, setImageSrc] = useState('');
   const [showForm, setShowForm] = useState(false);
-  const [teamNameError, setTeamNameError] = useState(''); // Estado para error del nombre del equipo
-  const [imageError, setImageError] = useState(''); // Estado para error de la imagen
+  const [teamNameError, setTeamNameError] = useState('');
+  const [imageError, setImageError] = useState('');
 
   const fetchTeams = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://172.22.192.1:3001/api/team');
-      
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      
-      const contentType = response.headers.get('Content-Type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Response is not JSON');
-      }
-  
-      const data = await response.json();
-      setTeams(data);
+      const response = await axios.get('/api/team');
+      setTeams(response.data);
       setError(null);
-      setShowForm(data.length === 0); // Show form if no teams are found
+      setShowForm(response.data.length === 0);
     } catch (error) {
       console.error('Error fetching teams:', error);
       setError('Error fetching teams');
@@ -55,15 +44,9 @@ const Teams = () => {
 
   const submitFlag = async () => {
     try {
-      const response = await fetch('http://172.22.192.1:3001/api/team/flag', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ flag }), // Solo enviar la flag
-      });
-      const data = await response.json();
-      console.log("sandia", data)
+      const response = await axios.post('/api/team/flag', { flag });
+      const data = response.data;
+      console.log("sandia", data);
       if (data.mensaje.includes("Flag coincide")) {
         setHint(data.mensaje);
         fetchTeams();
@@ -78,15 +61,9 @@ const Teams = () => {
 
   const submitVulnerability = async () => {
     try {
-      const response = await fetch('http://172.22.192.1:3001/api/team/vuln', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ vulnerability }), // Solo enviar la vulnerabilidad
-      });
-      const data = await response.json();
-      console.log("Vulnerabilidad", data)
+      const response = await axios.post('/api/team/vuln', { vulnerability });
+      const data = response.data;
+      console.log("Vulnerabilidad", data);
       if (data.mensaje.includes("¡Vulnerabilidad coincide y fue desencriptada!")) {
         setHint(data.mensaje);
         fetchTeams();
@@ -100,33 +77,24 @@ const Teams = () => {
   };
 
   const createTeam = async () => {
-    if (teamName.trim() === '') { // Validación del nombre del equipo
+    if (teamName.trim() === '') {
       setTeamNameError('El nombre del equipo es obligatorio.');
       return;
     }
-    if (imageSrc.trim() === '') { // Validación de la imagen
+
+    if (imageSrc.trim() === '') {
       setImageError('Debes seleccionar una imagen.');
       return;
     }
 
-    setTeamNameError(''); // Limpiar el error si el nombre es válido
-    setImageError(''); // Limpiar el error si la imagen es válida
-
+    setTeamNameError('');
+    setImageError('');
     try {
-      const response = await fetch('http://172.22.192.1:3001/api/team', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ teamName, imageSrc }),
-      });
-  
-      if (!response.ok) {
+      const response = await axios.put('/api/team', { teamName, imageSrc });
+      if (!response.status === 200) {
         throw new Error('Network response was not ok');
       }
-  
-      // Actualiza el equipo local (si es necesario)
-      await fetchTeams(); // Refresh the list of teams
+      await fetchTeams();
     } catch (error) {
       console.error('Error creating team:', error);
       setError('Error creating team');
@@ -284,6 +252,7 @@ const Teams = () => {
         </Row>
       )}
     </Container>
+
   );
 };
 

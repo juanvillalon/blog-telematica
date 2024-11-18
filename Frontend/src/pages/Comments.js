@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { AppContext } from '../context/AppContext'; // Assuming this contains user authentication info
 import LogoutButton from '../components/LogoutButton';
+import axios from 'axios';
 
 const ReviewsSection = styled(motion.div)`
   width: 80%;
@@ -13,8 +14,6 @@ const ReviewsSection = styled(motion.div)`
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
-
-
 
 const ReviewList = styled.div`
   display: flex;
@@ -33,7 +32,8 @@ const RatingStars = styled.div`
 
 const Comments = () => {
   const { reviews } = useContext(AppContext); // Check for isLoggedIn status
-  
+  const [error, setError] = useState("");
+
   const calculateAverageRating = () => {
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
     return (totalRating / reviews.length).toFixed(1);
@@ -43,18 +43,33 @@ const Comments = () => {
     return '★'.repeat(rating) + '☆'.repeat(5 - rating);
   };
 
+  // Example of fetching reviews with Axios
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get('/api/reviews');
+        // Assuming the reviews are set in the context or state
+        // setReviews(response.data);
+      } catch (error) {
+        setError('Error fetching reviews');
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
   return (
-    
     <ReviewsSection
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-          <div>
-      <LogoutButton />
-      {/* El contenido de la página */}
-    </div>
+      <div>
+        <LogoutButton />
+        {/* El contenido de la página */}
+      </div>
       <h2>Reseñas</h2>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <SummarySection>
         <h3>Resumen de Calificaciones</h3>
         <RatingStars>{getStarRating(Math.round(calculateAverageRating()))} {calculateAverageRating()} de 5</RatingStars>

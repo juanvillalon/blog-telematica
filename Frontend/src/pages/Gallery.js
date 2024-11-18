@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import fotosus from '../components/images/mrrobot_302.jpg';
 
 const GallerySection = styled(motion.div)`
   width: 80%;
@@ -29,9 +30,7 @@ const Gallery = () => {
     >
       <h2>Galería de Fotos</h2>
       <GalleryGrid>
-        <img src="https://via.placeholder.com/200x200?text=Foto+1" alt="Foto 1" style={{ borderRadius: '8px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.1)' }} />
-        <img src="https://via.placeholder.com/200x200?text=Foto+2" alt="Foto 2" style={{ borderRadius: '8px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.1)' }} />
-        <img src="https://via.placeholder.com/200x200?text=Foto+3" alt="Foto 3" style={{ borderRadius: '8px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.1)' }} />
+        <img src={fotosus} alt="Foto sospechosa" style={{ borderRadius: '8px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.1)' }} />
         {/* Agrega más fotos aquí */}
       </GalleryGrid>
     </GallerySection>
