@@ -42,8 +42,7 @@ const Curriculum = () => {
         { semester: '7º Semestre', subjects: ['Inglés Disciplinar', 'Disponibilidad y Rendimiento de Sistemas TIC', 'Ingeniería de Software', 'Laboratorio de Comunicaciones', 'Optimización', 'Ciencia de Datos'] },
         { semester: '8º Semestre', subjects: ['Electivo', 'Pensamiento de Diseño de Ingeniería', 'Ingeniería Ciberseguridad', 'Planificación de Infraestructura Telemática', 'Aplicaciones Web y Móviles', 'Procesamiento Digital de Imágenes'] },
         { semester: '9º Semestre', subjects: ['Electivo', 'Gestión de la Innovación', 'Electivo Disciplinar', 'Electivo Disciplinar', 'Electivo Disciplinar', 'Taller Memoria I**'] },
-        { semester: '10º Semestre', subjects: ['Electivo Disciplinar', 'Gestión del Emprendimiento', 'Electivo Disciplinar', 'Electivo Disciplinar', 'Taller Memoria II**'] },
-        { '(**) Asignaturas relacionadas a la actividad de titulación, bajo un enfoque multidisciplinario'}
+        { semester: '10º Semestre', subjects: ['Electivo Disciplinar', 'Gestión del Emprendimiento', 'Electivo Disciplinar', 'Electivo Disciplinar', 'Taller Memoria II**'] }
       ].map((sem, index) => (
         <Semester key={index}>
           <h3>{sem.semester}</h3>
